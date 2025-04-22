@@ -37,4 +37,6 @@ jobs:
             git commit --allow-empty -m "Ejecutar formato automático (sin cambios)"
           fi
 
+          git pull --rebase origin ${{ github.head_ref }}
           git push origin HEAD:${{ github.head_ref }}
+
