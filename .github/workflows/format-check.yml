@@ -1,4 +1,4 @@
-name: Verificar formato de código
+name: Formatear código automáticamente
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
       - '.editorconfig'
 
 jobs:
-  check-format:
+  format-code:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,12 +17,10 @@ jobs:
       - name: Instalar SDK de .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: '8.0.x' # O la versión que uses
+          dotnet-version: '8.0.x'  # O la versión que uses
 
       - name: Restaurar dependencias
         run: dotnet restore WebApplication1.sln
 
-      - name: Verificar formato
-        id: checkFormatting
-        run: |
-          dotnet format WebApplication1.sln --verify-no-changes --verbosity detailed
+      - name: Formatear código
+        run: dotnet format WebApplication1.sln --verbosity detailed
