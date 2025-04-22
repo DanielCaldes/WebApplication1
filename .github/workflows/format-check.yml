@@ -24,6 +24,9 @@ jobs:
       - name: Add dotnet tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
+      - name: Install dos2unix
+        run: sudo apt-get install -y dos2unix
+
       - name: Set line endings to LF (Unix-style)
         run: |
           find . -type f -name "*.cs" -exec dos2unix {} \;
