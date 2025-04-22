@@ -11,10 +11,13 @@ namespace WebApplication1.Controllers
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
+
         }
 
         public IActionResult Index()
         {
+            // Este es un comentario muy largo que excede los 100 caracteres permitidos por el estilo de codificación. 
+
             return View();
         }
 
