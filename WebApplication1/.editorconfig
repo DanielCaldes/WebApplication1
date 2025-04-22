@@ -1,11 +1,12 @@
 [*.{cs,vb}]
-end_of_line = lf
+end_of_line = crlf
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4
 indent_size = 4
 dotnet_style_allow_multiple_blank_lines_experimental = false:warning
 dotnet_style_allow_statement_immediately_after_block_experimental = true:silent
 dotnet_style_readonly_field = true:suggestion
+insert_final_newline = true
 [*.cs]
 csharp_space_around_binary_operators = before_and_after
 csharp_indent_labels = one_less_than_current
