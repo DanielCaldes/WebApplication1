@@ -13,16 +13,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up .NET Core SDK
+      - name: Set up .NET SDK
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '8.0.x'
+          dotnet-version: '9.0.203'
 
       - name: Install dotnet-format
         run: dotnet tool install --global dotnet-format
 
       - name: Add dotnet tools to PATH
         run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Check dotnet-format version
+        run: dotnet tool list --global
 
       - name: Run dotnet-format
         run: dotnet format --verify-no-changes --verbosity diagnostic
