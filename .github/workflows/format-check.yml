@@ -15,14 +15,14 @@ jobs:
         continue-on-error: true
         id: checkFormatting
         run: |
-          dotnet format --verify-no-changes --no-restore --verbosity normal
+          dotnet format WebApplication1.sln --verify-no-changes --no-restore --verbosity normal
 
       - name: Aplicar formato si es necesario
         if: steps.checkFormatting.outcome == 'failure'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          dotnet format --no-restore
+          dotnet format WebApplication1.sln --no-restore
           git add .
           git commit -m "Aplicar formato de código"
           git push
