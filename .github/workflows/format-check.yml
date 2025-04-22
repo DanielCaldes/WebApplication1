@@ -1,35 +1,28 @@
-name: Run .NET Formatter
+name: Verificar formato de código
 
 on:
   pull_request:
     paths:
       - '**/*.cs'
+      - '.editorconfig'
 
 jobs:
-  format:
+  check-format:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Set up .NET Core SDK
-        uses: actions/setup-dotnet@v2
-        with:
-          dotnet-version: '8.0.x'
-
-      - name: Install dotnet-format
-        run: dotnet tool install --global dotnet-format
-
-      - name: Add dotnet tools to PATH
-        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
-
-      - name: Install dos2unix
-        run: sudo apt-get install -y dos2unix
-
-      - name: Set line endings to LF (Unix-style)
+      - name: Comprobar formato de código
+        continue-on-error: true
+        id: checkFormatting
         run: |
-          find . -type f -name "*.cs" -exec dos2unix {} \;
+          dotnet format --verify-no-changes --no-restore --verbosity normal
 
-      - name: Run dotnet-format (force LF end of lines)
-        run: dotnet format --fix --verbosity diagnostic
+      - name: Aplicar formato si es necesario
+        if: steps.checkFormatting.outcome == 'failure'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          dotnet format --no-restore
+          git add .
+          git commit -m "Aplicar formato de código"
+          git push
