@@ -20,7 +20,8 @@ jobs:
 
     - name: Install dotnet-format
       run: |
-        dotnet tool install --global dotnet-format
+        dotnet tool install --tool-path ./.tools dotnet-format
+        echo "::add-path::$(pwd)/.tools"
 
     - name: Run dotnet-format
       run: |
