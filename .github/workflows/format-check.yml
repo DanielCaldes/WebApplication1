@@ -18,14 +18,15 @@ jobs:
         with:
           dotnet-version: '9.0.203'
 
-      - name: Install dotnet-format
-        run: dotnet tool install --global dotnet-format
-
-      - name: Add dotnet tools to PATH
-        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+      - name: Install dotnet-format tool
+        run: |
+          dotnet tool install --global dotnet-format
+          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH  # Esto añade el directorio de herramientas al PATH
 
       - name: Check dotnet-format version
-        run: dotnet tool list --global
+        run: dotnet tool list --global  # Este paso verifica que dotnet-format se haya instalado correctamente
 
       - name: Run dotnet-format
-        run: dotnet format --verify-no-changes --verbosity diagnostic
+        run: |
+          echo "Running dotnet format"
+          dotnet format --verify-no-changes --verbosity diagnostic
