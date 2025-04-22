@@ -18,9 +18,6 @@ namespace WebApplication1.Controllers
         {
             // Este es un comentario muy largo que excede los 100 caracteres permitidos por el estilo de codificación. 
 
-
-
-
             return View();
         }
 
