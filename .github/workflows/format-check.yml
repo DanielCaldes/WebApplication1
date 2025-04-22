@@ -1,0 +1,27 @@
+name: Run .NET Formatter
+
+on:
+  pull_request:
+    paths:
+      - '**/*.cs'
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up .NET Core SDK
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Install dotnet-format
+      run: |
+        dotnet tool install --global dotnet-format
+
+    - name: Run dotnet-format
+      run: |
+        dotnet format --check --verbosity diagnostic
