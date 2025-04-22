@@ -11,15 +11,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Comprobar formato de código
+      - name: Revisar formato del código
         continue-on-error: true
         id: checkFormatting
         run: |
+          # Nos aseguramos de que se ejecute en el directorio correcto
+          cd WebApplication1  # Cambiamos al directorio correcto
           dotnet format WebApplication1.sln --verify-no-changes --no-restore --verbosity normal
 
       - name: Aplicar formato si es necesario
         if: steps.checkFormatting.outcome == 'failure'
         run: |
+          cd WebApplication1  # Cambiamos al directorio correcto
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           dotnet format WebApplication1.sln --no-restore
