@@ -25,4 +25,4 @@ jobs:
 
     - name: Run dotnet-format
       run: |
-        dotnet format --check --verbosity diagnostic
+        dotnet format --check --verbosity diagnostic ./Path/To/WebApplication1.csproj
