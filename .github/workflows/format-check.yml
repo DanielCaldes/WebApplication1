@@ -24,13 +24,13 @@ jobs:
 
       - name: Formatear código
         run: dotnet format WebApplication1.sln --verbosity detailed
-        
+
       - name: Aplicar cambios si los hay
-              run:|
-                git config user.name "github-actions"
-                git config user.email "github-actions@github.com"
-                if [ -n "$(git status --porcelain)" ]; then
-                  git add .
-                  git commit -m "Aplicar formato automático con dotnet format"
-                  git push
-                fi
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+            git commit -m "Aplicar formato automático con dotnet format"
+            git push
+          fi
