@@ -13,20 +13,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up .NET SDK
+      - name: Set up .NET Core SDK
         uses: actions/setup-dotnet@v2
         with:
-          dotnet-version: '9.0.203'
+          dotnet-version: '8.0.x'
 
-      - name: Install dotnet-format tool
+      - name: Install dotnet-format
+        run: dotnet tool install --global dotnet-format
+
+      - name: Add dotnet tools to PATH
+        run: echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
+
+      - name: Set line endings to LF (Unix-style)
         run: |
-          dotnet tool install --global dotnet-format
-          echo "$HOME/.dotnet/tools" >> $GITHUB_PATH  # Esto añade el directorio de herramientas al PATH
-
-      - name: Check dotnet-format version
-        run: dotnet tool list --global  # Este paso verifica que dotnet-format se haya instalado correctamente
+          find . -type f -name "*.cs" -exec dos2unix {} \;
 
       - name: Run dotnet-format
-        run: |
-          echo "Running dotnet format"
-          dotnet format --verify-no-changes --verbosity diagnostic
+        run: dotnet format --verify-no-changes --verbosity diagnostic
