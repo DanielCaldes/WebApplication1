@@ -14,8 +14,15 @@ jobs:
       - name: Checkout del código
         uses: actions/checkout@v3
 
+      - name: Instalar SDK de .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x' # O la versión que uses
+
+      - name: Restaurar dependencias
+        run: dotnet restore WebApplication1.sln
+
       - name: Verificar formato
-        continue-on-error: true
         id: checkFormatting
         run: |
-          dotnet format WebApplication1.sln
+          dotnet format WebApplication1.sln --verify-no-changes --verbosity detailed
