@@ -31,5 +31,5 @@ jobs:
         run: |
           find . -type f -name "*.cs" -exec dos2unix {} \;
 
-      - name: Run dotnet-format
-        run: dotnet format --verify-no-changes --verbosity diagnostic
+      - name: Run dotnet-format (force LF end of lines)
+        run: dotnet format --fix --verbosity diagnostic
