@@ -1,0 +1,42 @@
+name: Formatear código automáticamente
+
+on:
+  pull_request:
+    paths:
+      - '**/*.cs'
+      - '.editorconfig'
+
+jobs:
+  format-code:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v3
+
+      - name: Instalar SDK de .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'  # O la versión que uses
+
+      - name: Restaurar dependencias
+        run: dotnet restore WebApplication1.sln
+
+      - name: Formatear código
+        run: dotnet format WebApplication1.sln --verbosity detailed
+
+      - name: Aplicar cambios (aunque no haya)
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add .
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m "Aplicar formato automático con dotnet format"
+          else
+            git commit --allow-empty -m "Ejecutar formato automático (sin cambios)"
+          fi
+
+          git pull --rebase origin ${{ github.head_ref }}
+          git push origin HEAD:${{ github.head_ref }}
+
