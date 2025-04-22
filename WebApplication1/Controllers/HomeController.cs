@@ -13,18 +13,12 @@ namespace WebApplication1.Controllers
             _logger = logger;
             //Hola
 
-
-
-
-
-
-
             // Meto otra cosa
         }
 
         public IActionResult Index()
         {
-            // Este es un comentario muy largo que excede los 100 caracteres permitidos por el estilo de codificación. 
+            // Este es un comentario muy largo que excede los 100 caracteres permitidos por el estilo de codificaciï¿½n. 
 
             return View();
         }
